@@ -2,7 +2,7 @@ const productos = [
     {
         id: "indumentaria-1",
         titulo: "Alpargata",
-        imagen: "/assets/indumentaria/alpargata.jpg",
+        imagen: "../assets/indumentaria/alpargata.jpg",
         precio: 1000,
         catnombre: "Indumentaria",
         catid: "indumentaria"
@@ -19,10 +19,10 @@ const productos = [
     {
         id: "indumentaria-3",
         titulo: "Bombacha",
-        "imagen": "../assets/indumentaria/bombacha.jpg",
-        "precio": 1000,
-        "catnombre": "Indumentaria",
-        "catid": "indumentaria"
+        imagen: "../assets/indumentaria/bombacha.jpg",
+        precio: 1000,
+        catnombre: "Indumentaria",
+        catid: "indumentaria"
     },
     {
         id: "indumentaria-4",
@@ -48,7 +48,8 @@ const productos = [
         catnombre: "Indumentaria",
         catid: "indumentaria"
     },
-
+];
+/*
     {
         id: "gastronomia-1",
         titulo: "Alfajor de maicena",
@@ -58,6 +59,7 @@ const productos = [
         catid: "gastronomia"
     }
     ,
+    /*
     {
         id: "gastronomia-2",
         titulo: "Alfajor negro",
@@ -150,7 +152,7 @@ const productos = [
         catid: "instrumentos"
     }
 ];
-
+*/
 console.log(productos);
 
 
@@ -161,11 +163,37 @@ let botonesAgregar = document.querySelectorAll(".producto-agregar");
 const numerito = document.querySelector("#numerito");
   
 
+function cargarProductos() {
+
+   
+
+    productos.forEach(producto => {
+
+        const div = document.createElement("div");
+        div.classList.add("producto");
+        div.innerHTML = `
+            <img class="producto-imagen" src="${producto.imagen}" alt="${producto.titulo}">
+            <div class="producto-detalles">
+                <h3 class="producto-titulo">${producto.titulo}</h3>
+                <p class="producto-precio">$${producto.precio}</p>
+                <button class="producto-agregar" id="${producto.id}">Agregar</button>
+            </div>
+        `;
+
+        contenedorProductos.append(div);
+    })
+
+    actualizarBotonesAgregar();
+}
+cargarProductos();
+tituloPrincipal.innerHTML=document.title;
+
+/*
 botonesCategorias.forEach(boton => {
     boton.addEventListener("click", (e) => {
       
         const productoCategoria = productos.filter( producto => producto.catid === e.currentTarget.id );
-
+          console.log(productoCategoria);
         localStorage.setItem("productos-categorizados", JSON.stringify(productoCategoria));
     })
     
@@ -196,7 +224,7 @@ tituloPrincipal.innerHTML=document.title;
 
     actualizarBotonesAgregar();
 
-
+*/
 
 function actualizarBotonesAgregar() {
     botonesAgregar = document.querySelectorAll(".producto-agregar");
