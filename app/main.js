@@ -1,4 +1,4 @@
-const productos = [
+/*const productos = [
     {
         id: "indumentaria-1",
         titulo: "Alpargata",
@@ -49,7 +49,7 @@ const productos = [
         catid: "indumentaria"
     },
 ];
-/*
+
     {
         id: "gastronomia-1",
         titulo: "Alfajor de maicena",
@@ -152,22 +152,22 @@ const productos = [
         catid: "instrumentos"
     }
 ];
-*/
-console.log(productos);
+
+console.log(productos);*/
+let productos = [];
 
 
-const contenedorProductos = document.querySelector("#contenedor-productos");
-const botonesCategorias = document.querySelectorAll(".nav-sombreado");
-const tituloPrincipal = document.querySelector("#titulo-principal");
-let botonesAgregar = document.querySelectorAll(".producto-agregar");
-const numerito = document.querySelector("#numerito");
-  
+    fetch("http://localhost:3001/api/productos")
+    .then(response => response.json())
+    .then(data => {
+        productos = data;
+        mostrarProductos(productos);
+    }) 
 
-function cargarProductos() {
 
-   
-
-    productos.forEach(producto => {
+function mostrarProductos(productoCategorizado) {
+     
+    productoCategorizado.forEach(producto => {
 
         const div = document.createElement("div");
         div.classList.add("producto");
@@ -179,22 +179,32 @@ function cargarProductos() {
                 <button class="producto-agregar" id="${producto.id}">Agregar</button>
             </div>
         `;
-
+        
         contenedorProductos.append(div);
+        actualizarBotonesAgregar();
+      
     })
 
-    actualizarBotonesAgregar();
+    
 }
-cargarProductos();
-tituloPrincipal.innerHTML=document.title;
 
-/*
+
+const contenedorProductos = document.querySelector("#contenedor-productos");
+const botonesCategorias = document.querySelectorAll(".nav-sombreado");
+const tituloPrincipal = document.querySelector("#titulo-principal");
+let botonesAgregar = document.querySelectorAll(".producto-agregar");
+const numerito = document.querySelector("#numerito");
+
+console.log(productos)
+
+
 botonesCategorias.forEach(boton => {
     boton.addEventListener("click", (e) => {
       
         const productoCategoria = productos.filter( producto => producto.catid === e.currentTarget.id );
           console.log(productoCategoria);
         localStorage.setItem("productos-categorizados", JSON.stringify(productoCategoria));
+        console.log(productos)
     })
     
 });
@@ -204,7 +214,7 @@ let productoCat = localStorage.getItem("productos-categorizados");
         console.log(productoCat);
 tituloPrincipal.innerHTML=document.title;
         
-    contenedorProductos.innerHTML = "";
+  /*  contenedorProductos.innerHTML = "";
 
     productoCat.forEach(producto => {
      console.log(productoCat);
@@ -224,7 +234,7 @@ tituloPrincipal.innerHTML=document.title;
 
     actualizarBotonesAgregar();
 
-*/
+        */
 
 function actualizarBotonesAgregar() {
     botonesAgregar = document.querySelectorAll(".producto-agregar");
